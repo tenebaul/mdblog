@@ -6,7 +6,6 @@
 - [文件上传与mutli-part编码](#文件上传与mutli-part编码)
 	- [提交表单](#提交表单)
 	- [提交JSON](#提交json)
-- [-d to send raw data](#-d-to-send-raw-data)
 	- [提交XML](#提交xml)
 	- [上传文件](#上传文件)
 		- [只包含单个文件](#只包含单个文件)
@@ -39,7 +38,6 @@ Array(
 POSTing JSON Data with cURL
 
 ``` bash
-# -d to send raw data
 curl -X POST -H 'Content-Type: application/json' -d '{"username":"davidwalsh","password":"something"}' http://domain.tld/login
 ```
 
