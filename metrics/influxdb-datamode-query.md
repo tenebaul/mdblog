@@ -278,9 +278,27 @@ cpu_load_short,host=server02,region=us-west value=0.55 1422568543702900257
 cpu_load_short,direction=in,host=server01,region=us-west value=2.0 1422568543702900257
 ```
 
+## 服务器日志
+
+``influxdb``默认日志就输出到控制台，错误日志``stderr``，并没有专门管理。
+
+如果想把日志写入文件，可以重定向：
+
+``` bash
+$ influxd 2>$HOME/my_log_file
+```
+
+但是这样写入，运行时间长了，就不担心日志文件变成几个GB么？
+
+>事实上``influxdb``为了减少依赖，没用第三方日志系统，但也没去处理日志文件。
+
+既然应用层没处理日志文件，那就只能依靠系统层来处理日志了。系统层处理日志常规工具是``logrotate``。
+
+
 ## 参考文档
 
 - [getting_started](https://influxdb.com/docs/v0.9/introduction/getting_started.html )
 - [query_syntax](https://docs.influxdata.com/influxdb/v0.9/query_language/query_syntax/)
 - [aggregate_functions](https://influxdb.com/docs/v0.7/api/aggregate_functions.html)
 - [writing_data](https://docs.influxdata.com/influxdb/v1.2/guides/writing_data/)
+- [error log](https://docs.influxdata.com/influxdb/v1.2/administration/logs/)
