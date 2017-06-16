@@ -125,3 +125,77 @@ IgniteCluster cluster = ignite.cluster();
 ClusterGroup readyNodes = cluster.forPredicate((node) -> node.metrics().getCurrentCpuLoad() < 0.5);
 
 ```
+
+
+## 成员发现
+
+把``自动发现``抽象为 ``DiscoverySpi`` 接口。
+
+Ignite 集群成员之间是如何相互发现的呢？有很多方式：
+
+- 常规发现机制
+  - 基于ZooKeeper
+  - 基于共享数据库
+  - 基于共享文件系统
+- 专业发现机制
+ - 基于组播
+ - 基于静态IP
+ - 组播和静态IP结合
+
+### 组播和静态IP结合
+
+``` java
+
+TcpDiscoverySpi spi = new TcpDiscoverySpi();
+
+TcpDiscoveryVmIpFinder ipFinder = new TcpDiscoveryMulticastIpFinder();
+
+// Set Multicast group.
+ipFinder.setMulticastGroup("228.10.10.157");
+
+// Set initial IP addresses.
+// Note that you can optionally specify a port or a port range.
+ipFinder.setAddresses(Arrays.asList("1.2.3.4", "1.2.3.5:47500..47509"));
+
+spi.setIpFinder(ipFinder);
+
+IgniteConfiguration cfg = new IgniteConfiguration();
+// Override default discovery SPI.
+cfg.setDiscoverySpi(spi);
+
+// Start Ignite node.
+Ignition.start(cfg);
+```
+
+### 传统3发现机制
+
+- 共享文件
+
+``` java
+// Configuring IP finder.
+TcpDiscoverySharedFsIpFinder ipFinder = new TcpDiscoverySharedFsIpFinder();
+ipFinder.setPath("/var/ignite/addresses");
+spi.setIpFinder(ipFinder);
+
+```
+
+- 基于ZK
+
+``` java
+TcpDiscoveryZookeeperIpFinder ipFinder = new TcpDiscoveryZookeeperIpFinder();
+
+// Specify ZooKeeper connection string.
+ipFinder.setZkConnectionString("127.0.0.1:2181");
+spi.setIpFinder(ipFinder);
+```
+
+- 基于数据库
+
+``` java
+// Configure your DataSource.
+DataSource someDs = MySampleDataSource(...);
+TcpDiscoveryJdbcIpFinder ipFinder = new TcpDiscoveryJdbcIpFinder();
+ipFinder.setDataSource(someDs);
+spi.setIpFinder(ipFinder);
+
+```
