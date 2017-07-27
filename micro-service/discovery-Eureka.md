@@ -6,6 +6,8 @@
 - [Configuring-Eureka](https://github.com/Netflix/eureka/wiki/Configuring-Eureka)
 - [从ZooKeeper到Eureka](https://zhidao.baidu.com/question/1885502234226229708.html)
 
+- [深度剖析服务发现组件Netflix Eureka](http://geek.csdn.net/news/detail/130223)
+
 ## 快速简介
 
 ### What
@@ -61,6 +63,8 @@
 ![](assets/img-eureka-3-components.png)
 
 >Application Services ``register`` with Eureka and then send ``heartbeats`` to ``renew`` their **leases** every 30 seconds. If the client cannot renew the lease for a few times, it is taken out of the server registry in about 90 seconds. The registration information and the renewals are replicated to all the eureka nodes in the cluster. The clients from any zone can look up the registry information (happens every 30 seconds) to locate their services (which could be in any zone) and make remote calls.
+
+![](assets/img-eureka-basic-arc.png)
 
 - **跨机房同步**
 
