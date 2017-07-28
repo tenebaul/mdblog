@@ -7,6 +7,7 @@
 - [jenkins自动部署普通Java](jenkins自动部署普通Java.md)
 - [ssh登陆与隧道](ssh登陆与隧道.md): publish-over-ssh 利用脚本自动部署的基础
 
+- [手把手体验DockerHelloWorld](手把手体验DockerHelloWorld.md):从CI到CD的Docker基础
 
 ## tags
 
