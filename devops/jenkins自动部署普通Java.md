@@ -18,3 +18,4 @@
 
 - [](http://jdkleo.iteye.com/blog/2159844)
 - [Publish Over SSH插件](http://www.cnblogs.com/zz0412/p/jenkins_jj_10.html)：关于Publish Over SSH 的公共配置与项目配置
+- [Jenkins+Docker 自动部署node.js应用](http://www.jianshu.com/p/052a2401595a)
