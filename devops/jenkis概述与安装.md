@@ -176,8 +176,16 @@ $ jenkins-cli -i ~/.ssh/id_rsa list-jobs
 ERROR: anonymous is missing the Overall/Read permission
 ```
 
-遗憾的是这个版本有BUG，详见：[User Is Missing The Overall/read Permission Jenkins](http://savecomputer.net/is-missing/user-is-missing-the-overall-read-permission-jenkins.html)
+报错了，我们还需要在服务端 [Configure Global Security](http://localhost:8080/configureSecurity/) 打开一个选项开关。如下图勾选上 ``Allow anonymous read access``即可：
 
+![](assets/img-jenkins-ssh-allow-anonymous.png)
+
+
+``` bash
+$ jenkins-cli list-jobs
+
+hello-world-jresty
+```
 
 # 参考资料
 
