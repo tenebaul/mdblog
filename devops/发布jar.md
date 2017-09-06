@@ -189,6 +189,8 @@ mvn versions:set -DnewVersion=1.2.3
 
 从发布评论告知管理员后，大概1个工作日后，能在在 [http://search.maven.org/](http://search.maven.org/) 搜索到发布的``jar``包。
 
+![](assets/mvn-pubjar-central-repository-search.png)
+
 ### 依赖引用
 
 ``` xml
