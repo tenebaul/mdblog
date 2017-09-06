@@ -9,6 +9,8 @@
 
 - [手把手体验DockerHelloWorld](手把手体验DockerHelloWorld.md):从CI到CD的Docker基础
 
+- [发布``jar``包到中央库的流程](发布jar.md)
+
 ## tags
 
 ``continuous deployment``,``Deployment Pipeline``,``automated deployment``,``Pipeline as code``,``share pipelines between teams``,``Groovy DSL``, ``CI/CD Tools``
