@@ -49,6 +49,12 @@
 
 <!-- /TOC -->
 
+要想发布一个``jar``到``maven``中央库，也就是能让你的``jar``在 http://search.maven.org/ 能检索到，能在``pom.xml``中直接引用。以``xyz.downgoon:snowflake:0.1.0``为例，大体上分3大步骤：
+
+- 申请``groupId``：在 [https://issues.sonatype.org/](https://issues.sonatype.org/) 网站，注册账号，并创建一个``issue``工单，比如：[snowflake 工单](https://issues.sonatype.org/browse/OSSRH-34583)。
+- 发布``artifactId``: 在获得``groupId``所有权认可后，你可以通过``mvn deploy``把项目的``jar``（包含``jar``，``soure``和``document``三个压缩包）都上传到 [https://oss.sonatype.org/](https://oss.sonatype.org/)。对于``SNAPSHOT``版本，可以理解上传；对于正式版本，为防止误操作等，官方提供了一个叫``staging``的机制，也就是上传后，你还得登陆[https://oss.sonatype.org/]，检查无误后，手动触发发布（能不能程序化触发笔者尚不知）。项目如何能``mvn deploy``到``OSSRH``呢？可直接借用模板项目：[hello-java-maven](https://github.com/downgoon/hello-java-maven)。
+- 同步到中央库：OSSRH （写入端）会自动同步到中央库 http://search.maven.org/ （读取端），第三方仓库（比如阿里云）会再从中央库同步，公司的私服又可以既从中央库同步，又可从阿里云同步。这些都是自动触发的，只是需要些时间，慢的话，需要2小时全网同步。
+
 ## 准备阶段
 
 ### 注册账号
@@ -59,13 +65,18 @@
 
 登陆后，点击``issues``，创建一个``issue``，形如：
 
-- [jresty工单](https://issues.sonatype.org/browse/OSSRH-27329)
-- [big-sequence-file工单](https://issues.sonatype.org/browse/OSSRH-34362)
+- [jresty 工单](https://issues.sonatype.org/browse/OSSRH-27329)：groupId是``com.github.downgoon``。
+- [big-sequence-file 工单](https://issues.sonatype.org/browse/OSSRH-34362)：实际上这个也不需要再发工单。
+- [snowflake 工单](https://issues.sonatype.org/browse/OSSRH-34583): groupId是``xyz.downgoon``。
+- [mydk 工单](https://issues.sonatype.org/browse/OSSRH-34714)： 实际上不需要再发工单了。
 
 **提醒**
->- 只有等工单的状态是``RESOVED``时，才可以去执行``mvn deploy``。
->- 工单类型为：``New Project``。
->- ``groupId``对应的域名，您得确保您有控制权。如何证明有域名的控制权，通常是在某个指定目录，按对方的要求放一个指定内容的文件。但是非``github``的情况下，``sonatype``的域名确权机制，笔者并未体验过。
+>- 并不需要每发布一个新``jar``包（指的是独立的``artifactId``），都需要创建一个工单。只有当这个它的``groupId``第一次使用时，才需要。为的是确认``groupId``的所有权，并让官方配置对``groupId``的同步。
+>- 如果这个``artifactId``对应的``groupId``是第一次使用，那么需要创建``issue``工单，流程会相对较长，因为需要``groupId``的确权（你需要向官方证明你具有``groupId``对应域名的写权限），这个确权过程居然是 **人工审核**（笔者的推测依据是审核遇到周末时需要2~3天，机器是不放假的）。
+>- 如果这个``artifactId``对应的``groupId``已经使用过，压根不需要创建``issue``。
+>- 只有等工单的状态是``RESOVED``时（表示审核通过），才可以去执行``mvn deploy``。
+>- 工单类型为：``New Project``（如果你不知道怎么填，可以参照上面的工单``clone``一个）。
+>- ``groupId``对应的域名，您得确保您有控制权。如何证明有域名的控制权，通常是在某个指定目录，按对方的要求放一个指定内容的文件。但是笔者只是把站点的截图发给他们了就通过了（当然站点的内容是跟项目相关的）。
 >- 如果您之前发布过该``groupId``下的其他包，比如笔者之前发布过``com.github.downgoon``下的``jresty``包，那么``com.github.downgoon``这个``groupId``会立即可用，只需直接部署下一个``artifactId``即可，比如笔者的``big-sequence-file``。
 
 ## 发布阶段
