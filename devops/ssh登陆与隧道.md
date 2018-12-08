@@ -1,15 +1,6 @@
 # SSH登陆与隧道
 
-<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
-
-- [SSH登陆与隧道](#ssh登陆与隧道)
-	- [私钥登陆](#私钥登陆)
-	- [用图示意](#用图示意)
-	- [生成私匙](#生成私匙)
-	- [分发公钥](#分发公钥)
-	- [参考资料](#参考资料)
-
-<!-- /TOC -->
+[TOC]
 
 ## 私钥登陆
 
